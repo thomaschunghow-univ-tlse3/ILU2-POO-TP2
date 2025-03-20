@@ -1,6 +1,7 @@
 package frontiere;
 
 import controleur.ControlPrendreEtal;
+import personnages.Gaulois;
 
 public class BoundaryPrendreEtal {
 	private ControlPrendreEtal controlPrendreEtal;
@@ -8,7 +9,7 @@ public class BoundaryPrendreEtal {
 	public BoundaryPrendreEtal(ControlPrendreEtal controlChercherEtal) {
 		this.controlPrendreEtal = controlChercherEtal;
 	}
-
+		
 	public void prendreEtal(String nomVendeur) {
 		boolean nomVendeurConnu = controlPrendreEtal.verifierIdentite(nomVendeur);
 		int numeroEtal = -1;
@@ -24,14 +25,15 @@ public class BoundaryPrendreEtal {
 			return;
 		}
 		installerVendeur(nomVendeur);
-		return;
 	}
-
+	
 	private void installerVendeur(String nomVendeur) {
 		System.out.println("C'est parfait, il me reste un Ã©tal pour vous !\nIl me faudrait quelques renseignements :\n");
-		StringBuilder chaine = new StringBuilder();
-		chaine.append("Quel produit souhaitez-vous vendre ?\n");
-		String produit = Clavier.entrerChaine(chaine.toString());
-		
+		String produit = Clavier.entrerChaine("Quel produit souhaitez-vous vendre ?\n");
+		int nbProduit = Clavier.entrerEntier("Combien souhaitez-vous en vendre?\n");
+		int numeroEtal = controlPrendreEtal.prendreEtal(nomVendeur, produit, nbProduit);
+		if (numeroEtal != -1) {
+			System.out.println("Le vendeur " + nomVendeur + " s'est installé à l'étal n° " + numeroEtal);
+		}
 	}
 }
